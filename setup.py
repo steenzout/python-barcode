@@ -2,7 +2,14 @@
 
 import sys
 
-import pip.download
+import pip
+import semver
+
+if 10 >= semver.parse(pip.__version__)['major']:
+    import pip._internal.download as pip_download
+else:
+    import pip.download as pip_download
+
 
 from pip.req import parse_requirements
 
@@ -24,7 +31,7 @@ def requirements(requirements_file):
     """
     return [
         str(pkg.req) for pkg in parse_requirements(
-            requirements_file, session=pip.download.PipSession())]
+            requirements_file, session=pip_download.PipSession())]
 
 
 setup(
