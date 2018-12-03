@@ -7,11 +7,10 @@ import semver
 
 if 10 >= semver.parse(pip.__version__)['major']:
     import pip._internal.download as pip_download
+    from pip._internal.req import parse_requirements
 else:
     import pip.download as pip_download
-
-
-from pip.req import parse_requirements
+    from pip.req import parse_requirements
 
 from setuptools import setup, find_packages
 
